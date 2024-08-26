@@ -1,12 +1,17 @@
 const express = require("express");
 const dotenv = require("dotenv");
 
-// Route Files
 const bootcamps = require("./routes/bootcamps"); // this is router basically
+
+const morgan = require("morgan");
 
 dotenv.config({ path: "./config/config.env" });
 
 const app = express();
+// Dev Logging Middleware
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 // Mount Routers
 app.use("/api/v1/bootcamps", bootcamps); // Base URL
